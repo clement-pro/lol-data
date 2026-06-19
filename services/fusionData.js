@@ -2,9 +2,9 @@ import { fetchDdragonData, fetchCdragonData } from "./binParser.js";
 import {writeFile} from "node:fs";
 
 
-export async function fusionData(patch, champion) {
+export async function fusionData(patch, champion, langue) {
     const cdragonData = await fetchCdragonData(patch.slice(0, -2), champion);
-    const ddragonData = await fetchDdragonData(patch, champion);
+    const ddragonData = await fetchDdragonData(patch, champion, langue);
 
     const newData = {
         type: ddragonData.type,

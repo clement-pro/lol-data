@@ -26,10 +26,10 @@ export async  function fetchCdragonData(patch, champion) {
     return data_values;
 }
 
-export async function fetchDdragonData(patch, champion) {
+export async function fetchDdragonData(patch, champion, langue) {
     const url =
         `${process.env.URL_DDRAGON}/${patch}` +
-        `/data/fr_FR/champion/${champion}` +
+        `/data/${langue}/champion/${champion}` +
         `.json`;
 
     const res = await axios.get(url);
