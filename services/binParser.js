@@ -21,6 +21,11 @@ export async  function fetchCdragonData(patch, champion) {
                 }))
             };
         }
+        else{
+            data_values[spellName] = {
+                dataValues: [],
+            }
+        }
     });
 
     return data_values;

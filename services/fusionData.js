@@ -19,7 +19,7 @@ export async function fusionData(patch, champion, langue) {
         }
     });
 
-    writeFile('./data/'+champion.toLowerCase()+'.json', JSON.stringify(newData, null, 2), 'utf8', (err) => {
+    writeFile('./data/'+champion+'.json', JSON.stringify(newData, null, 2), 'utf8', (err) => {
         if (err) {
             console.error('Erreur:', err);
         } else {

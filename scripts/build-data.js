@@ -1,13 +1,17 @@
-// scripts/build-data.js
 import fs from 'fs/promises';
 import path from 'path';
 import axios from "axios";
 import {fusionData} from "../services/fusionData.js";
+import dotenv from "dotenv";
+import {fileURLToPath} from "url";
+dotenv.config();
 
 async function buildChampionData() {
-    const version = axios.get(process.env.URL_PATH);
-    const languages = ['fr_FR', 'en_US'];
+    const res = await axios.get(process.env.URL_PATH);
+    const version = res.data[0]
+    const languages = ['fr_FR'];
 
+    const __dirname = path.dirname(fileURLToPath(import.meta.url));
     const championsDir = path.join(__dirname, '../data/');
     await fs.mkdir(championsDir, { recursive: true });
 
@@ -19,7 +23,7 @@ async function buildChampionData() {
 
         // Pour chaque champion
         for (const championId in championList.data) {
-            const championName = championId.toLowerCase();
+            const championName = championId;
 
             // Fusionner
             const merged = fusionData(version, championName, languages);

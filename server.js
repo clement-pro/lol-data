@@ -22,7 +22,7 @@ app.get('/champion/data/:champion', async (req, res) => {
 
     try {
         const filePath = path.join(__dirname, './data/',
-            `${champion.toLowerCase()}.json`);
+            `${champion}.json`);
 
         const data = await fs.readFile(filePath, 'utf8');
         res.json(JSON.parse(data));
