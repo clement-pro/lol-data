@@ -24,6 +24,7 @@ app.get('/champion/data/:champion', async (req, res) => {
         const filePath = path.join(__dirname, './data/',
             `${champion}.json`);
 
+        console.log(filePath);
         const data = await fs.readFile(filePath, 'utf8');
         res.json(JSON.parse(data));
     } catch (error) {
