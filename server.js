@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import {fusionData} from "./services/fusionData.js";
 
 dotenv.config();
 
@@ -17,16 +18,19 @@ app.get('/', (req, res) => {
     });
 });
 
-app.get('/champion/data/:champion', async (req, res) => {
-    const { champion } = req.params;
+app.get('/champion/data/:patch/:language/:champion', async (req, res) => {
+    const { patch, language, champion } = req.params;
 
     try {
-        const filePath = path.join(__dirname, './data/',
+        /*const filePath = path.join(__dirname, './data/',
             `${champion}.json`);
 
         console.log(filePath);
-        const data = await fs.readFile(filePath, 'utf8');
-        res.json(JSON.parse(data));
+        const data = await fs.readFile(filePath, 'utf8');*/
+
+        const data = await fusionData(patch,champion, language);
+
+        res.json(data);
     } catch (error) {
         res.status(404).json({ error: 'Champion not found' });
     }
