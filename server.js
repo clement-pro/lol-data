@@ -1,20 +1,24 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import fs from 'fs/promises';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import {fusionData} from "./services/fusionData.js";
 
 dotenv.config();
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 app.use(express.json());
 
 app.get('/', (req, res) => {
     res.json({
         status: 'ok',
-        service: 'lol-data'
+        service: 'lol-data',
+        version: '1.0.0',
+        endpoints: {
+            '/champion/data/:patch/:language/:champion': 'Champion data (ex: /champion/data/16.12.1/fr_FR/Ahri)',
+        },
+        usage: {
+            example: `${req.protocol}://${req.get('host')}/champion/aatrox`,
+            docs: 'https://github.com/clement-pro/lol-data'
+        }
     });
 });
 
@@ -22,11 +26,6 @@ app.get('/champion/data/:patch/:language/:champion', async (req, res) => {
     const { patch, language, champion } = req.params;
 
     try {
-        /*const filePath = path.join(__dirname, './data/',
-            `${champion}.json`);
-
-        console.log(filePath);
-        const data = await fs.readFile(filePath, 'utf8');*/
 
         const data = await fusionData(patch,champion, language);
 

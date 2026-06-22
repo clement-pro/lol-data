@@ -1,6 +1,4 @@
 import { fetchDdragonData, fetchCdragonData } from "./binParser.js";
-import {writeFile} from "node:fs";
-
 
 export async function fusionData(patch, champion, langue) {
     const cdragonData = await fetchCdragonData(patch.slice(0, -2), champion);
@@ -19,14 +17,5 @@ export async function fusionData(patch, champion, langue) {
         }
     });
 
-    /*
-    writeFile('./data/'+champion+'.json', JSON.stringify(newData, null, 2), 'utf8', (err) => {
-        if (err) {
-            console.error('Erreur:', err);
-        } else {
-            console.log('Fichier créé avec succès!');
-        }
-    });
-    */
     return newData;
 }
